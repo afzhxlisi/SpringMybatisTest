@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+        location="C:\Users\wang\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar" />
+    <context id="context1" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://qdm165228569.my3w.com:3306/qdm165228569_db?characterEncoding=UTF-8"
+            userId="qdm165228569" password="11111111" />
+        <javaModelGenerator targetPackage="com.cn.hnust.pojo"
+            targetProject="C:\Users\wang\git\SpringMybatisTest\src\main\java" />
+        <sqlMapGenerator targetPackage="com.cn.hnust.mapping"
+            targetProject="C:\Users\wang\git\SpringMybatisTest\src\main\resources" />
+        <javaClientGenerator targetPackage="com.cn.hnust.dao"
+            targetProject="C:\Users\wang\git\SpringMybatisTest\src\main\java" type="XMLMAPPER" />
+        <table schema="qdm165228569_db" tableName="user_t" />
+    </context>
+</generatorConfiguration>
