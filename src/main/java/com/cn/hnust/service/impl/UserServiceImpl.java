@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.hnust.dao.IUserDao;
 import com.cn.hnust.pojo.User;
 import com.cn.hnust.pojo.UserTExample;
+import com.cn.hnust.service.ITeacherService;
 import com.cn.hnust.service.IUserService;
 
 @Service("userService")
@@ -17,6 +20,8 @@ public class UserServiceImpl implements IUserService {
 	@Resource
 	private IUserDao userDao;
 
+	@Autowired
+	private ITeacherService teacherService;
 	
 	@Override
 	public User getUserById(int userId) {
@@ -47,7 +52,6 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-//	@Transactional
 	public int testForOpLock(){
 		UserTExample userEx = new UserTExample();
 		userEx.createCriteria().andIdEqualTo(1);
@@ -70,5 +74,34 @@ public class UserServiceImpl implements IUserService {
 		return this.userDao.updateByPrimaryKey(u);
 		
 	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void testRequireNew(boolean isThrow,boolean isThrow0,boolean isThrow1){
+		
+		if(isThrow){
+			throw new RuntimeException();
+		}
+		teacherService.testRequireNew1(isThrow1);
+		if(isThrow0){
+			throw new RuntimeException();
+		}
+		User u = new User();
+		u.setAge(1);
+		u.setId(1);
+		this.userDao.updateByPrimaryKeySelective(u);
+		User user = getUserById(1);
+		
+	}
+//	@Transactional(propagation=Propagation.REQUIRES_NEW)
+//	public void testRequireNew1(boolean isThrow1){
+//		User u = new User();
+//		u.setAge(2);
+//		u.setId(1);
+//		this.userDao.updateByPrimaryKeySelective(u);
+//		if(isThrow1){
+//			throw new RuntimeException();
+//		}
+//	}
 
 }

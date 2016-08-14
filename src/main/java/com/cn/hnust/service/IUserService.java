@@ -17,4 +17,6 @@ public interface IUserService {
 	void testForInitAge();
 
 	int testForPesLock();
+
+	void testRequireNew(boolean isThrow, boolean isThrow0, boolean isThrow1);
 }

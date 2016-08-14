@@ -11,11 +11,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.cn.hnust.pojo.Teacher;
 import com.cn.hnust.pojo.User;
+import com.cn.hnust.service.ITeacherService;
 import com.cn.hnust.service.IUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)		//表示继承了SpringJUnit4ClassRunner类
@@ -27,18 +27,21 @@ public class TestMyBatis {
 	@Resource
 	private IUserService userService ;
 
+	@Resource
+	private ITeacherService teacherService;
+	
 //	@Before
 //	public void before() {
 //		ac = new ClassPathXmlApplicationContext("applicationContext.xml");
 //		userService = (IUserService) ac.getBean("userService");
 //	}
 
-	@Test
-	public void test1() {
+//	@Test
+	public void testOPLock() {
 		try{
 			userService.testForInitAge();
 			Date dt1 = new Date();
-			int length = 1000;
+			int length = 10;
 			ExecutorService es = Executors.newFixedThreadPool(length);
 			for(int i = 0;i<length;i++){
 				es.execute(new Runnable() {
@@ -68,12 +71,12 @@ public class TestMyBatis {
 		}
 	}
 	
-	@Test
-	public void test2() {
+//	@Test
+	public void testPesLock() {
 		try{
 			userService.testForInitAge();
 			Date dt1 = new Date();
-			int length = 1000;
+			int length = 10;
 			ExecutorService es = Executors.newFixedThreadPool(length);
 			for(int i = 0;i<length;i++){
 				es.execute(new Runnable() {
@@ -95,5 +98,24 @@ public class TestMyBatis {
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void testRequireNew(){
+		try{
+		userService.testForInitAge();
+		teacherService.testForInitAge();
+		User user = userService.getUserById(1);
+		logger.info("user:"+JSON.toJSONString(user));
+		Teacher t = teacherService.getTeacherById(1);
+		logger.info("teacher:"+JSON.toJSONString(t));
+		userService.testRequireNew(false, false, false);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		User user = userService.getUserById(1);
+		logger.info("user:"+JSON.toJSONString(user));
+		Teacher t = teacherService.getTeacherById(1);
+		logger.info("teacher:"+JSON.toJSONString(t));
 	}
 }
