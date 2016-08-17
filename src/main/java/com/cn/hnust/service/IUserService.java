@@ -18,5 +18,15 @@ public interface IUserService {
 
 	int testForPesLock();
 
-	void testRequireNew(boolean isThrow, boolean isThrow0, boolean isThrow1);
+	void testRequireNew(boolean isThrowOut,boolean isThrowInner);
+
+	void testRequireNever(boolean isThrowOut,boolean isThrowInner);
+
+	void testRequireMan(boolean isThrowOut,boolean isThrowInner);
+
+	void testRequireNest(boolean isThrowOut,boolean isThrowInner);
+
+	void testRequireNest1(boolean isThrowOut,boolean isThrowInner);
+
+	void testRequireCompNest(boolean isThrowOut,boolean isThrowInner);
 }

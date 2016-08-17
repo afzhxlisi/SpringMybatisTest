@@ -14,9 +14,19 @@ public interface ITeacherService {
 	void testForInitAge();
 
 
-//	void testRequireNew(boolean isThrow, boolean isThrow0, boolean isThrow1);
+	void testRequireNew(boolean isThrow, boolean isThrow0, boolean isThrow1);
 
 	void testRequireNew1(boolean isThrow1);
 
-	void testRequireSup(boolean isThrow1);
+	void testRequireNever(boolean isThrow1);
+
+	void testRequireMand(boolean isThrow1);
+
+	void testRequireNest(boolean isThrow1);
+
+	void testRequireNest1(boolean isThrow1);
+
+	void testRequireRequrieNest(boolean isThrow1);
+
+	void testRequireRequrieNest1(boolean isThrow1);
 }

@@ -77,14 +77,10 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void testRequireNew(boolean isThrow,boolean isThrow0,boolean isThrow1){
-		
-		if(isThrow){
-			throw new RuntimeException();
-		}
-		teacherService.testRequireNew1(isThrow1);
-		if(isThrow0){
-			throw new RuntimeException();
+	public void testRequireNew(boolean isThrowOut,boolean isThrowInner){
+		teacherService.testRequireNew1(isThrowInner);
+		if(isThrowOut){
+			throw new RuntimeException("out throws");
 		}
 		User u = new User();
 		u.setAge(1);
@@ -93,15 +89,87 @@ public class UserServiceImpl implements IUserService {
 		User user = getUserById(1);
 		
 	}
-//	@Transactional(propagation=Propagation.REQUIRES_NEW)
-//	public void testRequireNew1(boolean isThrow1){
-//		User u = new User();
-//		u.setAge(2);
-//		u.setId(1);
-//		this.userDao.updateByPrimaryKeySelective(u);
-//		if(isThrow1){
-//			throw new RuntimeException();
-//		}
-//	}
-
+	
+	@Override
+//	@Transactional(propagation=Propagation.REQUIRED)
+	public void testRequireNever(boolean isThrowOut,boolean isThrowInner){
+		teacherService.testRequireNever(isThrowInner);
+		if(isThrowOut){
+			throw new RuntimeException("out throws");
+		}
+		User u = new User();
+		u.setAge(1);
+		u.setId(1);
+		this.userDao.updateByPrimaryKeySelective(u);
+		User user = getUserById(1);
+		
+	}
+	
+	@Override
+//	@Transactional(propagation=Propagation.REQUIRED)
+	public void testRequireMan(boolean isThrowOut,boolean isThrowInner){
+		teacherService.testRequireMand(isThrowInner);
+		if(isThrowOut){
+			throw new RuntimeException("out throws");
+		}
+		User u = new User();
+		u.setAge(1);
+		u.setId(1);
+		this.userDao.updateByPrimaryKeySelective(u);
+		User user = getUserById(1);
+		
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void testRequireNest(boolean isThrowOut,boolean isThrowInner){
+		teacherService.testRequireNest(isThrowInner);
+		if(isThrowOut){
+			throw new RuntimeException("out throws");
+		}
+		User u = new User();
+		u.setAge(1);
+		u.setId(1);
+		this.userDao.updateByPrimaryKeySelective(u);
+		User user = getUserById(1);
+		
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void testRequireNest1(boolean isThrowOut,boolean isThrowInner){
+		try{
+			teacherService.testRequireNest(isThrowInner);
+		}catch(Exception ex){
+			teacherService.testRequireNest1(false);
+		}
+		if(isThrowOut){
+			throw new RuntimeException("out throws");
+		}
+		User u = new User();
+		u.setAge(1);
+		u.setId(1);
+		this.userDao.updateByPrimaryKeySelective(u);
+		User user = getUserById(1);
+		
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void testRequireCompNest(boolean isThrowOut,boolean isThrowInner){
+		try{
+			teacherService.testRequireRequrieNest(isThrowInner);
+		}catch(Exception ex){
+			teacherService.testRequireRequrieNest1(false);
+		}
+		if(isThrowOut){
+			throw new RuntimeException("out throws");
+		}
+		User u = new User();
+		u.setAge(1);
+		u.setId(1);
+		this.userDao.updateByPrimaryKeySelective(u);
+		User user = getUserById(1);
+		
+	}
 }

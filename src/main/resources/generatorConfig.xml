@@ -13,6 +13,6 @@
             targetProject="C:\Users\wang\git\SpringMybatisTest\src\main\resources" />
         <javaClientGenerator targetPackage="com.cn.hnust.dao"
             targetProject="C:\Users\wang\git\SpringMybatisTest\src\main\java" type="XMLMAPPER" />
-        <table schema="qdm165228569_db" tableName="user_t" />
+        <table schema="qdm165228569_db" tableName="teacher_t" />
     </context>
 </generatorConfiguration>

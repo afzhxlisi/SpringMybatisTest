@@ -36,7 +36,14 @@ public class TestMyBatis {
 //		userService = (IUserService) ac.getBean("userService");
 //	}
 
-//	@Test
+	@Test
+	public void testAll(){
+		testRequireNew();
+		testRequireNest();
+		testRequireNest1();
+//		testRequireNever();
+	}
+	
 	public void testOPLock() {
 		try{
 			userService.testForInitAge();
@@ -71,7 +78,6 @@ public class TestMyBatis {
 		}
 	}
 	
-//	@Test
 	public void testPesLock() {
 		try{
 			userService.testForInitAge();
@@ -100,18 +106,83 @@ public class TestMyBatis {
 		}
 	}
 	
-	@Test
 	public void testRequireNew(){
 		try{
 		userService.testForInitAge();
 		teacherService.testForInitAge();
+		userService.testRequireNew(true, false);
+		}catch(Exception ex){
+			logger.error(ex.getMessage());
+		}
 		User user = userService.getUserById(1);
 		logger.info("user:"+JSON.toJSONString(user));
 		Teacher t = teacherService.getTeacherById(1);
 		logger.info("teacher:"+JSON.toJSONString(t));
-		userService.testRequireNew(false, false, false);
+	}
+	
+	public void testRequireNever(){
+		try{
+		userService.testForInitAge();
+		teacherService.testForInitAge();
+		userService.testRequireNever(false, false);
+		}catch(Exception ex){
+			logger.error(ex.getMessage());
+		}
+		User user = userService.getUserById(1);
+		logger.info("user:"+JSON.toJSONString(user));
+		Teacher t = teacherService.getTeacherById(1);
+		logger.info("teacher:"+JSON.toJSONString(t));
+	}
+	
+	public void testRequireMand(){
+		try{
+		userService.testForInitAge();
+		teacherService.testForInitAge();
+		userService.testRequireMan(false, false);
 		}catch(Exception ex){
 			ex.printStackTrace();
+		}
+		User user = userService.getUserById(1);
+		logger.info("user:"+JSON.toJSONString(user));
+		Teacher t = teacherService.getTeacherById(1);
+		logger.info("teacher:"+JSON.toJSONString(t));
+	}
+	
+	public void testRequireNest(){
+		try{
+		userService.testForInitAge();
+		teacherService.testForInitAge();
+		userService.testRequireNest(true,false);
+		}catch(Exception ex){
+			logger.error(ex.getMessage());
+		}
+		User user = userService.getUserById(1);
+		logger.info("user:"+JSON.toJSONString(user));
+		Teacher t = teacherService.getTeacherById(1);
+		logger.info("teacher:"+JSON.toJSONString(t));
+	}
+	
+	public void testRequireNest1(){
+		try{
+		userService.testForInitAge();
+		teacherService.testForInitAge();
+		userService.testRequireNest1( false,true);
+		}catch(Exception ex){
+			logger.error(ex.getMessage());
+		}
+		User user = userService.getUserById(1);
+		logger.info("user:"+JSON.toJSONString(user));
+		Teacher t = teacherService.getTeacherById(1);
+		logger.info("teacher:"+JSON.toJSONString(t));
+	}
+
+	public void testRequireCompNest(){
+		try{
+		userService.testForInitAge();
+		teacherService.testForInitAge();
+		userService.testRequireCompNest( true, true);
+		}catch(Exception ex){
+			logger.error(ex.getMessage());
 		}
 		User user = userService.getUserById(1);
 		logger.info("user:"+JSON.toJSONString(user));
